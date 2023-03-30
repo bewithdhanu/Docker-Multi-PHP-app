@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.5.8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/db_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  app:
+    build:
+      context: config/app
+      dockerfile: Dockerfile.laravel
+    environment:
+      APACHE_LOG_DIR: /usr/local/apache2/logs
+      COMPOSE_IMAGE: "app"
+    volumes:
+      - ./html/app:/var/www/html
+      - ./logs:/usr/local/apache2/logs
+    ports:
+      - "8001:80"
+    depends_on:
+      - db
+
+  landing:
+    build:
+      context: config/landing
+      dockerfile: Dockerfile.web
+    environment:
+      APACHE_LOG_DIR: /usr/local/apache2/logs
+      COMPOSE_IMAGE: "landing"
+    volumes:
+      - ./html/landing:/var/www/html
+      - ./logs:/usr/local/apache2/logs
+    ports:
+      - "8000:80"
+
+volumes:
+  db_data:
