@@ -2,10 +2,11 @@ version: '3.9'
 
 services:
   app:
-    image: php:7.4-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: app
     volumes:
-      - ./app:/var/www/html
       - ./logs:/var/log/apache2
       - ./config/app.env:/var/www/html/.env
       - ./config/app.conf:/etc/apache2/sites-available/000-default.conf
@@ -51,6 +52,4 @@ networks:
 volumes:
   data:
   logs:
-  app:
-  landing:
   config:
