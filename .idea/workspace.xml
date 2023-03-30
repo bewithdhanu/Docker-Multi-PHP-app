@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cab5caf-2b5b-4f1f-ba34-fc3e27e7a333" name="Changes" comment="add default laravel 9 source code to app image that should work with the mariadb image we created">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    <list default="true" id="1cab5caf-2b5b-4f1f-ba34-fc3e27e7a333" name="Changes" comment="install composer to the app image">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +53,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680171522337</updated>
-      <workItem from="1680171523454" duration="4011000" />
+      <workItem from="1680171523454" duration="4081000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1680184601592</created>
@@ -83,7 +83,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680186276144</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="install composer to the app image">
+      <created>1680186293100</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680186293100</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +100,7 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="add virtualhosts to be configurable from volumes" />
     <MESSAGE value="add default laravel 9 source code to app image that should work with the mariadb image we created" />
-    <option name="LAST_COMMIT_MESSAGE" value="add default laravel 9 source code to app image that should work with the mariadb image we created" />
+    <MESSAGE value="install composer to the app image" />
+    <option name="LAST_COMMIT_MESSAGE" value="install composer to the app image" />
   </component>
 </project>
