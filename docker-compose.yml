@@ -1,46 +1,54 @@
-version: '3'
+version: '3.9'
 
 services:
-  db:
-    image: mariadb:10.5.8
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql/db_data:/var/lib/mysql
-      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
   app:
-    build:
-      context: config/app
-      dockerfile: Dockerfile.laravel
-    environment:
-      APACHE_LOG_DIR: /usr/local/apache2/logs
-      COMPOSE_IMAGE: "app"
+    image: php:7.4-apache
+    container_name: app
     volumes:
-      - ./html/app:/var/www/html
-      - ./logs:/usr/local/apache2/logs
+      - ./app:/var/www/html
+      - ./logs:/var/log/apache2
+      - ./config/app.env:/var/www/html/.env
     ports:
-      - "8001:80"
+      - "8080:80"
     depends_on:
       - db
+    networks:
+      - app_network
 
   landing:
-    build:
-      context: config/landing
-      dockerfile: Dockerfile.web
-    environment:
-      APACHE_LOG_DIR: /usr/local/apache2/logs
-      COMPOSE_IMAGE: "landing"
+    image: php:7.4-apache
+    container_name: landing
     volumes:
-      - ./html/landing:/var/www/html
-      - ./logs:/usr/local/apache2/logs
+      - ./landing:/var/www/html
+      - ./logs:/var/log/apache2
+      - ./config/landing.env:/var/www/html/.env
     ports:
-      - "8000:80"
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  db:
+    image: mariadb
+    container_name: db
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./config/db.env:/etc/mysql/conf.d/app.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: app
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_password
+    networks:
+      - app_network
+
+networks:
+  app_network:
 
 volumes:
-  db_data:
+  data:
+  logs:
+  app:
+  landing:
+  config:
