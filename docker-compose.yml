@@ -8,6 +8,7 @@ services:
       - ./app:/var/www/html
       - ./logs:/var/log/apache2
       - ./config/app.env:/var/www/html/.env
+      - ./config/app.conf:/etc/apache2/sites-available/000-default.conf
     ports:
       - "8080:80"
     depends_on:
@@ -22,6 +23,7 @@ services:
       - ./landing:/var/www/html
       - ./logs:/var/log/apache2
       - ./config/landing.env:/var/www/html/.env
+      - ./config/landing.conf:/etc/apache2/sites-available/000-default.conf
     ports:
       - "8081:80"
     depends_on:
